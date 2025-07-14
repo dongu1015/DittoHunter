@@ -34,7 +34,8 @@ def clear_face_swapper() -> None:
 
 def pre_check() -> bool:
     download_directory_path = resolve_relative_path('../models')
-    conditional_download(download_directory_path, ['https://huggingface.co/CountFloyd/deepfake/resolve/main/inswapper_128.onnx'])
+    # Temporarily disable download due to 401 error
+    # conditional_download(download_directory_path, ['https://huggingface.co/deepinsight/inswapper/resolve/main/inswapper_512.onnx'])
     return True
 
 
@@ -57,7 +58,7 @@ def post_process() -> None:
 
 
 def swap_face(source_face: Face, target_face: Face, temp_frame: Frame) -> Frame:
-    return get_face_swapper().get(temp_frame, target_face, source_face, paste_back=True)
+    return get_face_swapper().get(temp_frame, target_face, source_face)
 
 
 def process_frame(source_face: Face, reference_face: Face, temp_frame: Frame) -> Frame:
